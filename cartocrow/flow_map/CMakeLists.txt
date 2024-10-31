@@ -9,7 +9,7 @@ set(SOURCES
 	polar_segment.cpp
 	reachable_region_algorithm.cpp
 	smooth_tree.cpp
-	smooth_tree_painting.cpp
+	#smooth_tree_painting.cpp
 	spiral.cpp
 	spiral_segment.cpp
 	spiral_tree.cpp
@@ -31,7 +31,7 @@ set(HEADERS
 	polar_segment.h
 	reachable_region_algorithm.h
 	smooth_tree.h
-	smooth_tree_painting.h
+	#smooth_tree_painting.h
 	spiral.h
 	spiral_segment.h
 	spiral_tree.h

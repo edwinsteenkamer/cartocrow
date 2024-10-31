@@ -19,9 +19,9 @@ set(TEST_SOURCES "cartocrow_test.cpp"
 	"necklace_map/range.cpp"
 	"renderer/ipe_renderer.cpp"
 	"simplification/vw_simplification.cpp"
-	"simplesets/poly_line_gon_intersection.cpp"
-	"simplesets/partition_algorithm.cpp"
-	"simplesets/collinear_island.cpp"
+	#"simplesets/poly_line_gon_intersection.cpp"
+	#"simplesets/partition_algorithm.cpp"
+	#"simplesets/collinear_island.cpp"
 )
 
 add_executable(cartocrow_test cartocrow_test.cpp ${TEST_SOURCES})
@@ -32,5 +32,5 @@ target_link_libraries(cartocrow_test
 	necklace_map
 	renderer
 	simplification
-	simplesets
+	#simplesets
 )

@@ -1,2 +1,2 @@
-add_subdirectory(optimization_demo)
+#add_subdirectory(optimization_demo)
 add_subdirectory(spiral_tree_demo)
