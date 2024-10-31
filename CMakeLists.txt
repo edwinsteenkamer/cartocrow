@@ -60,6 +60,7 @@ add_subdirectory(cartocrow)
 add_subdirectory(demos)
 add_subdirectory(frontend)
 add_subdirectory(test)
+#add_subdirectory(Edwin_test)
 
 # Install rules
 install(

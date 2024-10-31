@@ -184,7 +184,6 @@ void ComputeValidPlacement::operator()(const Number<Inexact>& scale_factor,
 				const double q = (3 * w_3 * w_1 - w_2 * w_2) / (9 * w_3 * w_3);
 				const double r = (9 * w_3 * w_2 * w_1 - 27 * w_3 * w_3 * w_0 - 2 * w_2 * w_2 * w_2) /
 				                 (54 * w_3 * w_3 * w_3);
-
 				const double rho = std::max(std::sqrt(-q * q * q), std::abs(r));
 
 				const double theta_3 = std::acos(r / rho) / 3;

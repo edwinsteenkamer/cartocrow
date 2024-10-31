@@ -1,0 +1,4 @@
+add_subdirectory(circular_geophylogeny)
+add_subdirectory(rectangular_geophylogeny)
+add_subdirectory(geophylogeny_JSON)
+add_subdirectory(data_collection)

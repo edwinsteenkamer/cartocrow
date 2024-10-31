@@ -1,1 +1,4 @@
 add_subdirectory(flow_map)
+add_subdirectory(geophylogeny_demo)
+
+add_subdirectory(isoline_simplification)

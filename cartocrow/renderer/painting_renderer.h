@@ -41,13 +41,18 @@ class PaintingRenderer : public GeometryPainting, public GeometryRenderer {
 	void draw(const Polygon<Inexact>& p) override;
 	void draw(const PolygonWithHoles<Inexact>& p) override;
 	void draw(const Circle<Inexact>& c) override;
-	//void draw(const BezierSpline& s) override;
+	void draw(const BezierSpline& s) override;
+	void draw(const Line<Inexact>& l) override;
+	void draw(const Ray<Inexact>& r) override;
+	void draw(const Polyline<Inexact>& p) override;
 	void drawText(const Point<Inexact>& p, const std::string& text) override;
+	void draw(const CircularArc& a) override;
 
 	void pushStyle() override;
 	void popStyle() override;
 	void setMode(int mode) override;
 	void setStroke(Color color, double width) override;
+	void setStrokeOpacity(int alpha) override;
 	void setFill(Color color) override;
 	void setFillOpacity(int alpha) override;
 
@@ -61,6 +66,8 @@ class PaintingRenderer : public GeometryPainting, public GeometryRenderer {
 		Color m_strokeColor = Color{0, 0, 0};
 		/// The width of lines.
 		double m_strokeWidth = 1;
+		/// The opacity of lines.
+		double m_strokeOpacity = 255;
 		/// The color of filled shapes.
 		Color m_fillColor = Color{0, 102, 203};
 		/// The opacity of filled shapes.
@@ -68,7 +75,8 @@ class PaintingRenderer : public GeometryPainting, public GeometryRenderer {
 	};
 	using Label = std::pair<Point<Inexact>, std::string>;
 	using DrawableObject = std::variant<Point<Inexact>, Segment<Inexact>, Polygon<Inexact>,
-	                                    PolygonWithHoles<Inexact>, Circle<Inexact>, Label, Style>;
+	                                    PolygonWithHoles<Inexact>, Circle<Inexact>, BezierSpline,
+	                                    Line<Inexact>, Ray<Inexact>, Polyline<Inexact>, CircularArc, Label, Style>;
 	std::vector<DrawableObject> m_objects;
 	Style m_style;
 };

@@ -166,7 +166,7 @@ void GeometryWidget::paintEvent(QPaintEvent* event) {
 	if (m_drawAxes) {
 		drawAxes();
 	}
-	for (auto painting : m_paintings) {
+	for (const auto& painting : m_paintings) {
 		if (painting.visible) {
 			pushStyle();
 			painting.m_painting->paint(*this);
@@ -263,7 +263,7 @@ void GeometryWidget::wheelEvent(QWheelEvent* event) {
 	}
 
 	double delta = event->angleDelta().y();
-	double factor = pow(2, delta / 240);
+	double factor = pow(1.5, delta / 240);
 
 	// limit the zoom factor
 	if (factor * m_transform.m11() > m_maxZoom) {
@@ -491,6 +491,11 @@ void GeometryWidget::draw(const Polygon<Inexact>& p) {
 	QPainterPath path;
 	addPolygonToPath(path, p);
 	m_painter->drawPath(path);
+	if (m_style.m_mode & vertices) {
+		for (auto v = p.vertices_begin(); v != p.vertices_end(); v++) {
+			draw(*v);
+		}
+	}
 }
 
 void GeometryWidget::draw(const PolygonWithHoles<Inexact>& p) {
@@ -501,6 +506,16 @@ void GeometryWidget::draw(const PolygonWithHoles<Inexact>& p) {
 		addPolygonToPath(path, hole);
 	}
 	m_painter->drawPath(path);
+	if (m_style.m_mode & vertices) {
+		for (auto v = p.outer_boundary().vertices_begin(); v != p.outer_boundary().vertices_end(); v++) {
+			draw(*v);
+		}
+		for (auto h = p.holes_begin(); h != p.holes_end(); h++) {
+			for (auto v = h->vertices_begin(); v != h->vertices_end(); v++) {
+				draw(*v);
+			}
+		}
+	}
 }
 
 void GeometryWidget::addPolygonToPath(QPainterPath& path, const Polygon<Inexact>& p) {
@@ -520,7 +535,18 @@ void GeometryWidget::draw(const Circle<Inexact>& c) {
 	m_painter->drawEllipse(rect);
 }
 
-/*void GeometryWidget::draw(const BezierSpline& s) {
+void GeometryWidget::draw(const CircularArc& a) {
+	setupPainter();
+	//auto c = a.circle();
+	auto s = a.startAngle();
+	auto t = a.spanAngle();
+	QRectF rect = convertBox(a.circle().bbox());
+	int source = s * (180 / M_PI) * 16;
+	int span = t * (180 / M_PI) * 16;
+	m_painter->drawArc(rect, source, span);
+}
+
+void GeometryWidget::draw(const BezierSpline& s) {
 	setupPainter();
 	QPainterPath path;
 	path.moveTo(convertPoint(s.curves()[0].source()));
@@ -529,7 +555,57 @@ void GeometryWidget::draw(const Circle<Inexact>& c) {
 		             convertPoint(c.target()));
 	}
 	m_painter->drawPath(path);
-}*/
+	if (m_style.m_mode & vertices) {
+		for (BezierCurve c : s.curves()) {
+			draw(c.source());
+		}
+		draw(s.curves().back().target());
+	}
+}
+
+void GeometryWidget::draw(const Ray<Inexact>& r) {
+	Box bounds = inverseConvertBox(rect());
+	auto result = intersection(r, CGAL::Iso_rectangle_2<Inexact>(Point<Inexact>(bounds.xmin(), bounds.ymin()), Point<Inexact>(bounds.xmax(), bounds.ymax())));
+	if (result) {
+		if (const Segment<Inexact>* s = boost::get<Segment<Inexact>>(&*result)) {
+			int oldMode = m_style.m_mode;
+			setMode(oldMode & ~vertices);
+			draw(*s);
+			setMode(oldMode);
+		}
+		if (m_style.m_mode & vertices) {
+			draw(r.source());
+		}
+	}
+}
+
+void GeometryWidget::draw(const Line<Inexact>& l) {
+	Box bounds = inverseConvertBox(rect());
+	auto result = intersection(l, CGAL::Iso_rectangle_2<Inexact>(Point<Inexact>(bounds.xmin(), bounds.ymin()), Point<Inexact>(bounds.xmax(), bounds.ymax())));
+	if (result) {
+		if (const Segment<Inexact>* s = boost::get<Segment<Inexact>>(&*result)) {
+			int oldMode = m_style.m_mode;
+			setMode(oldMode & ~vertices);
+			draw(*s);
+			setMode(oldMode);
+		}
+	}
+}
+
+void GeometryWidget::draw(const Polyline<Inexact>& p) {
+	setupPainter();
+	QPainterPath path;
+	path.moveTo(convertPoint(*p.vertices_begin()));
+	for (auto v = p.vertices_begin()++; v != p.vertices_end(); v++) {
+		path.lineTo(convertPoint(*v));
+	}
+	m_painter->drawPath(path);
+	if (m_style.m_mode & vertices) {
+		for (auto v = p.vertices_begin(); v != p.vertices_end(); v++) {
+			draw(*v);
+		}
+	}
+}
 
 void GeometryWidget::drawText(const Point<Inexact>& p, const std::string& text) {
 	setupPainter();
@@ -569,6 +645,10 @@ void GeometryWidget::setStroke(Color color, double width) {
 	m_style.m_strokeWidth = width;
 }
 
+void GeometryWidget::setStrokeOpacity(int alpha) {
+	m_style.m_strokeColor.setAlpha(alpha);
+}
+
 void GeometryWidget::setFill(Color color) {
 	m_style.m_fillColor.setRgb(color.r, color.g, color.b, m_style.m_fillColor.alpha());
 }
@@ -576,10 +656,6 @@ void GeometryWidget::setFill(Color color) {
 void GeometryWidget::setFillOpacity(int alpha) {
 	m_style.m_fillColor.setAlpha(alpha);
 }
-
-/*std::unique_ptr<QPainter> GeometryWidget::getQPainter() {
-	return std::make_unique<QPainter>(this);
-}*/
 
 void GeometryWidget::addPainting(std::shared_ptr<GeometryPainting> painting, const std::string& name) {
 	bool visible = !m_invisibleLayerNames.contains(name);
@@ -618,7 +694,7 @@ void GeometryWidget::setMaxZoom(double maxZoom) {
 }
 
 void GeometryWidget::zoomIn() {
-	m_transform *= 1.5;
+	m_transform *= 1.1;
 	if (m_transform.m11() > m_maxZoom) {
 		m_transform *= m_maxZoom / m_transform.m11();
 	}
@@ -627,7 +703,7 @@ void GeometryWidget::zoomIn() {
 }
 
 void GeometryWidget::zoomOut() {
-	m_transform /= 1.5;
+	m_transform /= 1.1;
 	if (m_transform.m11() < m_minZoom) {
 		m_transform /= m_minZoom / m_transform.m11();
 	}

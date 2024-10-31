@@ -45,6 +45,7 @@ struct IpeRendererStyle {
 	ipe::Color m_fillColor = ipe::Color(0, 102, 203);
 	/// The opacity of filled shapes, as a symbolic Ipe attribute.
 	ipe::Attribute m_fillOpacity;
+	ipe::Attribute m_strokeOpacity;
 };
 
 /// Ipe specialization of the GeometryRenderer.
@@ -71,6 +72,8 @@ struct IpeRendererStyle {
 class IpeRenderer : public GeometryRenderer {
 
   public:
+	IpeRenderer() = default;
+
 	/// Constructs a IpeRenderer for the given painting.
 	IpeRenderer(const std::shared_ptr<GeometryPainting>& painting);
 	IpeRenderer(const std::shared_ptr<GeometryPainting>& painting, const std::string& name);
@@ -83,13 +86,18 @@ class IpeRenderer : public GeometryRenderer {
 	void draw(const Polygon<Inexact>& p) override;
 	void draw(const PolygonWithHoles<Inexact>& p) override;
 	void draw(const Circle<Inexact>& c) override;
-	//void draw(const BezierSpline& s) override;
+	void draw(const BezierSpline& s) override;
+	void draw(const Line<Inexact>& l) override;
+	void draw(const Ray<Inexact>& r) override;
+	void draw(const Polyline<Inexact>& p) override;
+	void draw(const CircularArc& a) override;
 	void drawText(const Point<Inexact>& p, const std::string& text) override;
 
 	void pushStyle() override;
 	void popStyle() override;
 	void setMode(int mode) override;
 	void setStroke(Color color, double width) override;
+	void setStrokeOpacity(int alpha) override;
 	void setFill(Color color) override;
 	void setFillOpacity(int alpha) override;
 
@@ -99,12 +107,17 @@ class IpeRenderer : public GeometryRenderer {
   private:
 	/// Converts a polygon to an Ipe curve.
 	ipe::Curve* convertPolygonToCurve(const Polygon<Inexact>& p) const;
+	/// Converts a polyline to an Ipe curve.
+	ipe::Curve* convertPolylineToCurve(const Polyline<Inexact>& p) const;
 	/// Returns Ipe attributes to style an Ipe path with the current style.
 	ipe::AllAttributes getAttributesForStyle() const;
 	/// Escapes LaTeX's [reserved characters](https://latexref.xyz/Reserved-characters.html)
 	/// `# $ % & { } _ ~ ^ \` so that the resulting string can safely be used in
 	/// an Ipe file.
 	std::string escapeForLaTeX(const std::string& text) const;
+	/// Get the attribute for an opacity value.
+	/// If there is not yet an attribute for this opacity then it is created and added to the alpha sheet.
+	ipe::Attribute opacity_attribute(int alpha);
 
 	struct DrawnPainting {
 		/// The painting itself.
