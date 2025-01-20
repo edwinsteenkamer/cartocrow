@@ -22,19 +22,20 @@ void CircularPainting::paint(renderer::GeometryRenderer& renderer) const {
 }
 
 void CircularPainting::paintNodes(renderer::GeometryRenderer& renderer) const {
-	renderer.setMode(renderer::GeometryRenderer::vertices);
+	renderer.setMode(renderer::GeometryRenderer::fill);
 	for (const auto& node: m_circular_geophylogeny->m_tree->nodes()) {
 		if (node->getType() == Node::ConnectionType::kLeaf) {
-			renderer.setStroke(Color{0, 0, 0}, 3);
+			/*renderer.setStroke(Color{0, 0, 0}, 3);
 			renderer.setStrokeOpacity(255);
-			renderer.setFill(node->m_site->m_color);
-			auto leaf_drawing = Circle<Inexact>(node->m_position, 0.0075);
+			auto leaf_drawing = Circle<Inexact>(node->m_position, 0.02); //0.0075);
 			renderer.setMode(renderer::GeometryRenderer::stroke);
 			renderer.draw(leaf_drawing);
 			renderer.setMode(renderer::GeometryRenderer::fill);
-			renderer.draw(leaf_drawing);
+			renderer.draw(leaf_drawing);*/
+			renderer.setFill(node->m_site->m_color);
+			renderer.draw(node->m_position);
 		} else {
-			renderer.setStroke(Color{0,0,0}, 3);
+			renderer.setFill(Color{0,0,0});
 			renderer.draw(node->m_position);
 		}
 
@@ -74,14 +75,17 @@ void CircularPainting::paintEdges(renderer::GeometryRenderer& renderer) const {
 
 void CircularPainting::paintSites(renderer::GeometryRenderer& renderer) const {
 	for (const auto& site: m_circular_geophylogeny->m_sites) {
-		renderer.setStroke(Color{0, 0, 0}, 3);
+		/*renderer.setStroke(Color{0, 0, 0}, 3);
 		renderer.setStrokeOpacity(255);
 		renderer.setFill(site->m_color);
-		auto site_drawing = Circle<Inexact>(site->m_position, 0.0125);
+		auto site_drawing = Circle<Inexact>(site->m_position, 0.02); //0.0125);
 		renderer.setMode(renderer::GeometryRenderer::stroke);
 		renderer.draw(site_drawing);
 		renderer.setMode(renderer::GeometryRenderer::fill);
-		renderer.draw(site_drawing);
+		renderer.draw(site_drawing);*/
+		renderer.setMode(renderer::GeometryRenderer::fill);
+		renderer.setFill(site->m_color);
+		renderer.draw(site->m_position);
 	}
 }
 

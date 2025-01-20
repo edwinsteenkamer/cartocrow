@@ -58,6 +58,17 @@ void IpeRenderer::save(const std::filesystem::path& file) {
 	    "0.6 0 0 0.6 0 0 e\n"
 	    "</path>\n"
 	    "</symbol>\n"
+	    "<symbol name=\"mark/fdisk(sfx)\" transformations=\"translations\">\n"
+	    "<group>\n"
+	    "<path fill=\"sym-fill\">\n"
+	    "0.5 0 0 0.5 0 0 e\n"
+	    "</path>\n"
+	    "<path fill=\"sym-stroke\" fillrule=\"eofill\">\n"
+	    "0.6 0 0 0.6 0 0 e\n"
+	    "0.4 0 0 0.4 0 0 e\n"
+	    "</path>"
+	    "</group>"
+	    "</symbol>"
 	    "</ipestyle>";
 	ipe::Buffer styleBuffer(diskMarkDefinition.data(), diskMarkDefinition.size());
 	ipe::BufferSource styleSource(styleBuffer);
@@ -94,7 +105,7 @@ void IpeRenderer::save(const std::filesystem::path& file) {
 
 void IpeRenderer::draw(const Point<Inexact>& p) {
 	ipe::Vector vector(p.x(), p.y());
-	ipe::Attribute name = ipe::Attribute(true, "mark/disk(sx)");
+	ipe::Attribute name = ipe::Attribute(true, "mark/fdisk(sfx)");
 	ipe::Reference* reference = new ipe::Reference(getAttributesForStyle(), name, vector);
 	m_page->append(ipe::TSelect::ENotSelected, m_layer, reference);
 }
@@ -231,6 +242,19 @@ void IpeRenderer::draw(const BezierSpline& s) {
 }
 
 void IpeRenderer::draw(const CircularArc& a) {
+	// Extract data from the CircularArc
+	const Circle<Inexact>& circle = a.circle();
+	const double cx = circle.center().x();
+	const double cy = circle.center().y();
+	const double r = sqrt(circle.squared_radius());
+	const double startAngle = a.startAngle();
+	const double endAngle = startAngle + a.spanAngle();
+
+	ipe::Shape* shape = new ipe::Shape(ipe::Vector(cx, cy), r, startAngle, endAngle);
+	ipe::Path* path = new ipe::Path(getAttributesForStyle(), *shape);
+
+	// Add the arc to the current page
+	m_page->append(ipe::TSelect::ENotSelected, m_layer, path);
 
 }
 

@@ -26,21 +26,21 @@ void Painting::paint(renderer::GeometryRenderer& renderer) const {
 }
 
 void Painting::paintNodes(renderer::GeometryRenderer& renderer) const {
-	renderer.setMode(renderer::GeometryRenderer::vertices);
+	renderer.setMode(renderer::GeometryRenderer::fill);
 	for (const auto& node: m_rectangular_geophylogeny->m_tree->nodes()) {
 		if (node->getType() == Node::ConnectionType::kLeaf) {
-			renderer.setStroke(Color{0, 0, 0}, 3);
-			renderer.setStrokeOpacity(255);
+			//renderer.setStroke(Color{0, 0, 0}, 3);
+			//renderer.setStrokeOpacity(255);
 			renderer.setFill(node->m_site->m_color);
-			auto leaf_drawing = Circle<Inexact>(node->m_position, 0.0075);
+			/*auto leaf_drawing = Circle<Inexact>(node->m_position, 0.0075);
 			renderer.setMode(renderer::GeometryRenderer::stroke);
 			renderer.draw(leaf_drawing);
 			renderer.setMode(renderer::GeometryRenderer::fill);
-			renderer.draw(leaf_drawing);
-			/*renderer.setStroke(node->m_site->m_color, 2);
-			renderer.draw(node->m_position);*/
+			renderer.draw(leaf_drawing);*/
+			//renderer.setStroke(node->m_site->m_color, 2);
+			renderer.draw(node->m_position);
 		} else {
-			renderer.setStroke(Color{0,0,0}, 3);
+			renderer.setFill(Color{0,0,0});
 			renderer.draw(node->m_position);
 		}
 
@@ -49,7 +49,7 @@ void Painting::paintNodes(renderer::GeometryRenderer& renderer) const {
 
 void Painting::paintEdges(renderer::GeometryRenderer& renderer) const {
 	renderer.setMode(renderer::GeometryRenderer::stroke);
-	renderer.setStroke(Color{0, 0, 0}, 2);
+	renderer.setStroke(Color{0, 0, 0}, 3);
 	for (const auto& node: m_rectangular_geophylogeny->m_tree->nodes()) {
 		if(node->getType() != Node::ConnectionType::kLeaf) {
 			Point<Inexact> corner_first = Point<Inexact>(node->m_first_child->m_position.x(), node->m_position.y());
@@ -68,23 +68,23 @@ void Painting::paintEdges(renderer::GeometryRenderer& renderer) const {
 
 void Painting::paintSites(renderer::GeometryRenderer& renderer) const {
 	for (const auto& site: m_rectangular_geophylogeny->m_sites) {
-		renderer.setStroke(Color{0, 0, 0}, 3);
+		/*renderer.setStroke(Color{0, 0, 0}, 3);
 		renderer.setStrokeOpacity(255);
 		renderer.setFill(site->m_color);
 		auto site_drawing = Circle<Inexact>(site->m_position,  0.0125);
 		renderer.setMode(renderer::GeometryRenderer::stroke);
 		renderer.draw(site_drawing);
 		renderer.setMode(renderer::GeometryRenderer::fill);
-		renderer.draw(site_drawing);
-		/*renderer.setMode(renderer::GeometryRenderer::vertices);
-		renderer.setStroke(site->m_color, 2);
-		renderer.draw(site->m_position);*/
+		renderer.draw(site_drawing);*/
+		renderer.setMode(renderer::GeometryRenderer::fill);
+		renderer.setFill(site->m_color);
+		renderer.draw(site->m_position);
 	}
 }
 
 void Painting::paintBoundary(renderer::GeometryRenderer& renderer) const {
 	renderer.setMode(renderer::GeometryRenderer::stroke);
-	renderer.setStroke(Color{0, 0, 0}, 2);
+	renderer.setStroke(Color{0, 0, 0}, 3);
 
 	Polygon<Inexact> linear_boundary = m_rectangular_geophylogeny->boundary;
 	renderer.draw(linear_boundary);
