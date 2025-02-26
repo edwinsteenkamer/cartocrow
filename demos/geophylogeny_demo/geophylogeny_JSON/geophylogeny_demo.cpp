@@ -6,6 +6,8 @@
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <cstdlib>  // For rand and srand
+#include <ctime>    // For time
 
 
 #include <QApplication>
@@ -30,15 +32,22 @@
 #include "cartocrow/geophylogeny\sliding_positions/circular_sliding_optimization.h"
 #include "JSON_to_geophylogeny.h"
 #include "cartocrow/geophylogeny/colormap.hpp"
+#include "cartocrow/core/timer.h"
 
 using namespace cartocrow;
 using namespace cartocrow::geophylogeny;
 using json = nlohmann::json;
 
+void seedRandom() {
+	std::srand(std::time(nullptr)); // Seed with current time
+}
+
 
 int main(int argc, char* argv[]) {
+	Timer timer;
 	std::shared_ptr<renderer::GeometryPainting> painting;
 	std::shared_ptr<renderer::GeometryPainting> painting1;
+	seedRandom();
 
 	const std::filesystem::path projectFilename = argv[1];
 
@@ -71,6 +80,7 @@ int main(int argc, char* argv[]) {
 		if (jsonParameters["position_type"] == "fixed") {
 			DPOrdenerRectangular order = DPOrdenerRectangular(geophy, DPOrdenerRectangular::DPStrategy::kEuclidean);
 			order.orderLeaves();
+
 		} else if (jsonParameters["position_type"] == "sliding") {
 			RectangularSlideOrdener slide = RectangularSlideOrdener(geophy, num_cycles, aversion_centroid_ratio, interval_margin_rectangular, allowed_outside_interval);
 			slide.setPositionsOfLeaves();
@@ -104,6 +114,13 @@ int main(int argc, char* argv[]) {
 			i = i + 1;
 			leaf->m_site->m_color = Color(r, g ,b);
 		}*/
+		/*for (auto& site: geophy->m_sites) {
+			int r = std::rand() % 256;
+			int g = std::rand() % 256;
+			int b = std::rand() % 256;
+			site->m_color = Color(r, g, b);
+		}*/
+		timer.stamp("Order tree");
 		painting = std::make_shared<Painting>(geophy);
 
 	} else if (jsonParameters["tree_type"] == "circular") {
@@ -115,10 +132,11 @@ int main(int argc, char* argv[]) {
 			CircularSlideOrdener slide = CircularSlideOrdener(geophy1, num_cycles, aversion_centroid_ratio, interval_margin_circular, allowed_outside_interval);
 			slide.setPositionsOfLeaves();
 			for (auto& leaf: tree->leaves()) {
-				std::cout << std::sqrt(squared_distance(leaf->m_site->m_position, leaf->m_position)) << std::endl;
+				//std::cout << std::sqrt(squared_distance(leaf->m_site->m_position, leaf->m_position)) << std::endl;
 			}
 		}
 		geophy1->setInnerPositions(geophy1->m_tree->m_root);
+		timer.stamp("Order tree");
 		painting = std::make_shared<CircularPainting>(geophy1);
 	}
 
@@ -130,11 +148,14 @@ int main(int argc, char* argv[]) {
 
 		cartocrow::renderer::GeometryWidget widget(painting);
 		widget.show();
+		timer.output();
 		return a.exec();
 
 	} else {
 		cartocrow::renderer::IpeRenderer renderer(painting);
 		renderer.save(outputFilename);
+		timer.stamp("drawing");
+		timer.output();
 		return 0;
 	}
 

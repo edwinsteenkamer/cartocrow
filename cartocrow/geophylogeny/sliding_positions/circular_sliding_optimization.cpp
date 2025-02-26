@@ -4,6 +4,7 @@
 
 #include "circular_sliding_optimization.h"
 
+
 namespace cartocrow {
 namespace geophylogeny {
 
@@ -47,6 +48,7 @@ Number<Inexact> CircularSlideOrdener::intersectingValueWithMargin(std::shared_pt
 Number<Inexact> CircularSlideOrdener::minValueSuitable() {
 	Number<Inexact> min_value = 10000;
 	for (auto& site: m_geophylogeny->m_sites) {
+		int num_conflicts = 0;
 		Number<Inexact> min_value_site = 0;
 		std::vector<bool> current_firstAsRightChild;
 
@@ -79,10 +81,14 @@ Number<Inexact> CircularSlideOrdener::minValueSuitable() {
 			}
 
 			Number<Inexact> min_value_node = std::min(min_value_first_second, min_value_second_first);
+			if (min_value_node > 0) {
+				num_conflicts++;
+			}
 			min_value_site = std::max(min_value_site, min_value_node);
 		}
 
 		if (min_value_site < min_value) {
+			m_num_conflicts = num_conflicts;
 			min_value = min_value_site;
 			first_site = site;
 
@@ -150,6 +156,7 @@ void CircularSlideOrdener::computeIntervalsWithCorrectMargins() {
 }
 
 void CircularSlideOrdener::setPositionsOfLeaves() {
+	Timer timer;
 	computeIntervalsWithCorrectMargins();
 	std::vector<std::shared_ptr<Node>> leaves = m_geophylogeny->m_tree->leavesByTreeOrderRight(m_geophylogeny->m_tree->m_root);
 
@@ -190,6 +197,8 @@ void CircularSlideOrdener::setPositionsOfLeaves() {
 		leaf->setPolarPosition(flow_map::PolarPoint(m_geophylogeny->radius, leaf->polar_position.phi() + flow_map::PolarPoint(first_site->m_position).phi()));
 	}
 	computeIntervals(m_min_value);
+	timer.stamp("Intervals");
+	timer.output();
 	forceBasedPositioning(m_aversion_centroid_ratio, leaves);
 
 }

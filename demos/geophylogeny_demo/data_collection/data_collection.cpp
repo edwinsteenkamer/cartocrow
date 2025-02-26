@@ -225,6 +225,59 @@ std::tuple<double, double, double, double>  computeAverageDistanceForDirectory(c
 	return {avg_rect_fixed, avg_circ_fixed, avg_rect_sliding, avg_circ_sliding};
 }
 
+std::tuple<int, int, double, double>  numOfConflictsAndAngle(const std::filesystem::path& directory) {
+	std::vector<int> num_conflicts_rect;
+	std::vector<int> num_conflicts_circ;
+	std::vector<double> angle_rect;
+	std::vector<double> value_circ;
+	for (const auto& entry: std::filesystem::directory_iterator(directory)) {
+		std::filesystem::path projectFilename = entry.path();
+
+		std::ifstream file(projectFilename);
+		json jsonGeophylogeny = json::parse(file);
+
+		std::vector<std::shared_ptr<Site>> sites =
+		    JSONToGeophylogeny::readSitesFromJSON(projectFilename);
+
+		std::shared_ptr<Tree> tree = JSONToGeophylogeny::readTreeFromJSON(projectFilename, sites);
+
+		json jsonParameters = jsonGeophylogeny["parameters"];
+
+		int num_cycles = jsonParameters["num_cycles"].get<int>();
+		Number<Inexact> aversion_centroid_ratio =
+		    jsonParameters["aversion_centroid_ratio"].get<double>();
+		Number<Inexact> interval_margin_rectangular =
+		    jsonParameters["interval_margin_rectangular"].get<double>();
+		Number<Inexact> interval_margin_circular =
+		    jsonParameters["interval_margin_circular"].get<double>();
+		Number<Inexact> color_difference = jsonParameters["color_difference"].get<double>();
+		bool allowed_outside_interval = false;
+
+		std::shared_ptr<RectangularGeophylogeny> geophy = std::make_shared<RectangularGeophylogeny>(tree, sites, RectangularGeophylogeny::PositionType::fixed,
+		                                                                                            color_difference, jsonParameters["color_distance"]);
+
+		RectangularSlideOrdener slide = RectangularSlideOrdener(geophy, num_cycles, aversion_centroid_ratio,
+		                                                        interval_margin_rectangular, allowed_outside_interval);
+		slide.setPositionsOfLeaves();
+		num_conflicts_rect.push_back(slide.m_num_conflicts);
+		angle_rect.push_back(slide.m_angle);
+
+		std::shared_ptr<CircularGeophylogeny> geophy1 = std::make_shared<CircularGeophylogeny>(tree, sites, CircularGeophylogeny::PositionType::fixed, color_difference,
+		                                                                                       jsonParameters["color_distance"]);
+
+		CircularSlideOrdener slide1 = CircularSlideOrdener(geophy1, num_cycles, aversion_centroid_ratio, interval_margin_circular, allowed_outside_interval);
+		slide1.setPositionsOfLeaves();
+		num_conflicts_circ.push_back(slide1.m_num_conflicts);
+		value_circ.push_back(slide1.m_min_value);
+	}
+	int avg_num_conflicts_rect = std::accumulate(num_conflicts_rect.begin(), num_conflicts_rect.end(), 0.0) / num_conflicts_rect.size();
+	int avg_num_conflicts_circ = std::accumulate(num_conflicts_circ.begin(), num_conflicts_circ.end(), 0.0) / num_conflicts_circ.size();
+	double avg_angle_rect = std::accumulate(angle_rect.begin(), angle_rect.end(), 0.0) / angle_rect.size();
+	double avg_value_circ = std::accumulate(value_circ.begin(), value_circ.end(), 0.0) / value_circ.size();
+
+	return {avg_num_conflicts_rect, avg_num_conflicts_circ, avg_angle_rect, avg_value_circ};
+}
+
 std::string extractNumber(const std::string& directory) {
 	std::regex re("\\d+");
 	std::smatch match;
@@ -254,16 +307,36 @@ void generateCSV(const std::vector<std::tuple<std::string, double, double, doubl
 	std::cout << "CSV file created: " << csv_filename << std::endl;
 }
 
+void generateCSV1(const std::vector<std::tuple<std::string, int, int, double, double>>& data, const std::filesystem::path& csv_filename) {
+	std::ofstream csv_file(csv_filename);
+	if (!csv_file.is_open()) {
+		std::cerr << "Failed to open or create CSV file: " << csv_filename << std::endl;
+		return;
+	}
+
+
+	// Write CSV header
+	csv_file << "n, conflicts rect., conflicts circ., angle rect., value circ.\n";
+
+	// Write data for each directory
+	for (const auto& [dir_name, avg_1, avg_2, avg_3, avg_4] : data) {
+		csv_file << dir_name << ", " << avg_1 << ", " << avg_2 << ", " << avg_3 << ", " << avg_4 << "\n";
+	}
+
+	csv_file.close();
+	std::cout << "CSV file created: " << csv_filename << std::endl;
+}
+
 
 int main(int argc, char* argv[]) {
 
 	const std::filesystem::path parent_directory = argv[1];
-	std::vector<std::tuple<std::string, double, double, double, double>> directory_averages;
+	std::vector<std::tuple<std::string, int, int, double, double>> directory_averages;
 
 	for (const auto& dir_entry: std::filesystem::directory_iterator(parent_directory)) {
 		std::filesystem::path directory = dir_entry.path();
 
-		auto [avg_1, avg_2, avg_3, avg_4] = computeAverageDistanceForDirectory(directory);
+		auto [avg_1, avg_2, avg_3, avg_4] = numOfConflictsAndAngle(directory);
 
 		std::string directory_number = extractNumber(directory.filename().string());
 		directory_averages.emplace_back(directory_number, avg_1, avg_2, avg_3, avg_4);
@@ -274,7 +347,7 @@ int main(int argc, char* argv[]) {
 
 	std::cout << datatype << std::endl;
 
-	generateCSV(directory_averages, "metric-results/" + datatype + "/force_fixed/average_angle_" + correlation + ".csv");
+	generateCSV1(directory_averages, "metric-results/conflicts/" + datatype + "_" + correlation + ".csv");
 
 
 }

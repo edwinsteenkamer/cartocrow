@@ -6,6 +6,7 @@
 #define CARTOCROW_CIRCULAR_SLIDING_OPTIMIZATION_H
 
 #include "../../core/core.h"
+#include "../../core/timer.h"
 #include "../phylo_tree/site.h"
 #include "../circular_geophylogeny.h"
 
@@ -70,6 +71,9 @@ struct CircularSlideOrdener {
 	bool m_allowed_outside_interval = false;
 
 	Number<Inexact> m_min_value;
+
+	/// The number of conflicts;
+	int m_num_conflicts = 10000;
 
 };
 

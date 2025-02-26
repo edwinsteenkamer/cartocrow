@@ -53,6 +53,8 @@ struct CircularGeophylogeny {
 	/// The parameter to determine color difference in the tree.
 	Number<Inexact> m_color_difference = 0.0;
 
+	void rotateSites();
+
 	/// creates a circular boundary on which the leaves are placed.
 	void createBoundary();
 

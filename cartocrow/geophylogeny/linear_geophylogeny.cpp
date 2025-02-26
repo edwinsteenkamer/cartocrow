@@ -3,6 +3,8 @@
 //
 
 #include "linear_geophylogeny.h"
+#include <CGAL/Min_circle_2.h>
+#include <CGAL/Min_circle_2_traits_2.h>
 
 namespace cartocrow {
 namespace geophylogeny {
@@ -19,6 +21,8 @@ RectangularGeophylogeny::RectangularGeophylogeny(std::shared_ptr<Tree> tree, std
 RectangularGeophylogeny::RectangularGeophylogeny(std::shared_ptr<Tree> tree, std::vector<std::shared_ptr<Site>> sites, const PositionType position_type, Number<Inexact> color_difference, std::string color_distance)
     : m_sites(sites), m_tree(tree), m_position_type(position_type), m_color_difference(color_difference) {
 	Geophylogeny::normalizeSitePositions(m_sites);
+	//setOriginAsCenter();
+	//rotateSites();
 	createBoundary();
 	setYCoordinates();
 	leaf_step = (boundary_box.xmax() - boundary_box.xmin()) / (m_tree->m_leaves.size() - 1);
@@ -95,6 +99,39 @@ void RectangularGeophylogeny::setInnerPositions(std::shared_ptr<Node> node) {
 
 Point<Inexact> RectangularGeophylogeny::getPointByPosition(int position) {
 	return Point<Inexact>(boundary_box.xmin() + position * leaf_step, boundary_box.ymax());
+}
+
+Circle<Inexact> RectangularGeophylogeny::computeSmallestEnclosingCircle(std::vector<Point<Inexact>> positions) {
+	CGAL::Min_circle_2<CGAL::Min_circle_2_traits_2<Inexact>> enclosing_circle(positions.begin(), positions.end());
+	auto optimization_circle = enclosing_circle.circle();
+	auto center = optimization_circle.center();
+	auto squared_radius = optimization_circle.squared_radius();
+	return Circle<Inexact>(center, squared_radius);
+}
+
+void RectangularGeophylogeny::setOriginAsCenter() {
+	std::vector<Point<Inexact>> positions = Geophylogeny::getSitePositions(m_sites);
+	auto center = computeSmallestEnclosingCircle(positions).center();
+	for (auto& site: m_sites) {
+		site->m_x -= center.x();
+		site->m_y -= center.y();
+		site->m_position = Point<Inexact>(site->m_x, site->m_y);
+	}
+}
+
+void RectangularGeophylogeny::rotateSites() {
+	for (auto& site: m_sites) {
+		auto copy_x = site->m_x;
+		auto copy_y = site->m_y;
+		site->m_x = copy_y;
+		site->m_y = -copy_x;
+		if (site->m_y > 0) {
+			site->m_y = site->m_y - 2;
+		} else {
+			site->m_y = site->m_y + 2;
+		}
+		site->m_position = Point<Inexact>(site->m_x, site->m_y);
+	}
 }
 
 

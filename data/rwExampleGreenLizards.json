@@ -6,11 +6,11 @@
     "num_leaves": 20,
 	"parameters": {
 		"tree_type": "rectangular",
-		"position_type": "fixed",
-		"color_distance": "leaves",
+		"position_type": "sliding",
+		"color_distance": "sites",
 		"aversion_centroid_ratio": 0.1,
 		"interval_margin_rectangular": 0.2,
-		"interval_margin_circular": 0.2,
+		"interval_margin_circular": 0.4,
 		"color_difference": 0.5,
 		"num_cycles": 100,
 		"allowed_outside_interval": false

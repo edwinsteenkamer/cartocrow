@@ -74,6 +74,14 @@ struct RectangularGeophylogeny {
 	/// Returns the point corresponding to the given fixed position.
 	Point<Inexact> getPointByPosition(int position);
 
+	/// returns the smallest enclosing circle of the original site positions.
+	Circle<Inexact> computeSmallestEnclosingCircle(std::vector<Point<Inexact>> positions);
+
+	/// Sets the center of the smallest enclosing circle of the sites to the origin by translating the sites.
+	void setOriginAsCenter();
+
+	void rotateSites();
+
 
 
 

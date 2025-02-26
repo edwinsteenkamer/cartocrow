@@ -19,7 +19,7 @@ Painting::Painting(std::shared_ptr<RectangularGeophylogeny> rectangular_geophylo
 void Painting::paint(renderer::GeometryRenderer& renderer) const {
 	paintBoundary(renderer);
 	paintEdges(renderer);
-	//paintLeaders(renderer);
+	paintLeaders(renderer);
 	//paintIntervals(renderer);
 	paintNodes(renderer);
 	paintSites(renderer);

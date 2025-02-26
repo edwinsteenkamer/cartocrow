@@ -44,7 +44,7 @@ struct GeometryWidgetStyle {
 	/// The draw mode.
 	int m_mode = GeometryRenderer::stroke;
 	/// The diameter of points.
-	double m_pointSize = 10;
+	double m_pointSize = 15;
 	/// The color of points and lines.
 	QColor m_strokeColor = QColor(0, 0, 0);
 	/// The width of lines.

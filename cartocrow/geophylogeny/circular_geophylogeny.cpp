@@ -20,6 +20,7 @@ CircularGeophylogeny::CircularGeophylogeny(std::shared_ptr<Tree> tree, std::vect
 	: m_sites(sites), m_tree(tree), m_position_type(position_type) {
 	Geophylogeny::normalizeSitePositions(m_sites);
 	setOriginAsCenter();
+	//rotateSites();
 	for (auto& site: m_sites) {
 		polar_sites.push_back(flow_map::PolarPoint(site->m_position));
 	}
@@ -34,6 +35,7 @@ CircularGeophylogeny::CircularGeophylogeny(std::shared_ptr<Tree> tree, std::vect
     : m_sites(sites), m_tree(tree), m_position_type(position_type), m_color_difference(color_difference) {
 	Geophylogeny::normalizeSitePositions(m_sites);
 	setOriginAsCenter();
+	//rotateSites();
 	for (auto& site: m_sites) {
 		polar_sites.push_back(flow_map::PolarPoint(site->m_position));
 	}
@@ -64,6 +66,21 @@ Circle<Inexact> CircularGeophylogeny::computeSmallestEnclosingCircle(std::vector
 	return Circle<Inexact>(center, squared_radius);
 }
 
+void CircularGeophylogeny::rotateSites() {
+	for (auto& site: m_sites) {
+		auto copy_x = site->m_x;
+		auto copy_y = site->m_y;
+		site->m_x = copy_y;
+		site->m_y = -copy_x;
+		if (site->m_y > 0) {
+			site->m_y = site->m_y - 2;
+		} else {
+			site->m_y = site->m_y + 2;
+		}
+		site->m_position = Point<Inexact>(site->m_x, site->m_y);
+	}
+}
+
 void CircularGeophylogeny::setOriginAsCenter() {
 	std::vector<Point<Inexact>> positions = Geophylogeny::getSitePositions(m_sites);
 	auto center = computeSmallestEnclosingCircle(positions).center();
@@ -73,6 +90,7 @@ void CircularGeophylogeny::setOriginAsCenter() {
 		site->m_position = Point<Inexact>(site->m_x, site->m_y);
 	}
 }
+
 
 void CircularGeophylogeny::setOriginAsCentroid() {
 	std::vector<Point<Inexact>> positions = Geophylogeny::getSitePositions(m_sites);

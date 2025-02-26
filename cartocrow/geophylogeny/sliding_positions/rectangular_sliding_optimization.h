@@ -62,6 +62,11 @@ struct RectangularSlideOrdener {
 	/// Tells if leaves are allowed to be pushed outside their intervals.
 	bool m_allowed_outside_interval = false;
 
+	/// The number of nodes that are a conflict
+	int m_num_conflicts = 0;
+
+	Number<Inexact> m_angle;
+
 };
 
 }

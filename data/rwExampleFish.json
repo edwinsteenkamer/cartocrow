@@ -8,9 +8,9 @@
         "tree_type": "rectangular",
         "position_type": "fixed",
         "color_distance": "leaves",
-        "aversion_centroid_ratio": 0.7,
-        "interval_margin_rectangular": 0.3,
-        "interval_margin_circular": 0.05,
+        "aversion_centroid_ratio": 0.1,
+        "interval_margin_rectangular": 0.2,
+        "interval_margin_circular": 0.2,
         "color_difference": 0.5,
         "num_cycles": 100,
         "allowed_outside_interval": false

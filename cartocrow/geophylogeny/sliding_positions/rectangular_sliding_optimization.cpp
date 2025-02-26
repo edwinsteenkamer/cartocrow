@@ -69,6 +69,9 @@ Number<Inexact> RectangularSlideOrdener::minAngleSuitable() {
 		}
 
 		Number<Inexact> min_angle_node = std::min(min_angle_first_second, min_angle_second_first);
+		if (min_angle_node > 0) {
+			m_num_conflicts++;
+		}
 		conflict_values.push_back(min_angle_node);
 		min_angle = std::max(min_angle, min_angle_node);
 	}
@@ -110,6 +113,7 @@ void RectangularSlideOrdener::computeIntervalsWithCorrectMargins() {
 			num_leaves++;
 		}
 	}
+	m_angle = min_angle * 180 / M_PI;
 	computeIntervals(min_angle);
 }
 
