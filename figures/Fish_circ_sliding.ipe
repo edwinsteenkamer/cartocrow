@@ -1,0 +1,339 @@
+<?xml version="1.0"?>
+<!DOCTYPE ipe SYSTEM "ipe.dtd">
+<ipe version="70218">
+<ipestyle name="alpha-values">
+<opacity name="255" value="1"/>
+</ipestyle>
+<ipestyle name="paper-size">
+<layout paper="1000 1000" origin="0 0" frame="1000 1000"/>
+</ipestyle>
+<ipestyle name="marks">
+<symbol name="mark/disk(sx)" transformations="translations">
+<path fill="sym-stroke">
+0.6 0 0 0.6 0 0 e
+</path>
+</symbol>
+<symbol name="mark/fdisk(sfx)" transformations="translations">
+<group>
+<path fill="sym-fill">
+0.5 0 0 0.5 0 0 e
+</path>
+<path fill="sym-stroke" fillrule="eofill">
+0.6 0 0 0.6 0 0 e
+0.4 0 0 0.4 0 0 e
+</path>
+</group>
+</symbol>
+</ipestyle>
+<page>
+<layer name="alpha"/>
+<path layer="alpha" stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+6.84824 0 0 6.84824 0 0 e
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+7.07012 1.05394 m
+7.14824 0 0 7.14824 0 0 5.92658 3.99662 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+5.67785 3.82889 m
+5.92658 3.99662 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+6.7734 1.00971 m
+7.07012 1.05394 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+4.8094 5.28839 m
+7.14824 0 0 7.14824 0 0 -4.02424 5.90787 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-3.85535 5.65992 m
+-4.02424 5.90787 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+4.60756 5.06644 m
+4.8094 5.28839 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+5.70444 4.78912 m
+7.44824 0 0 7.44824 0 0 0.521045 7.43 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+5.24492 4.40333 m
+5.70444 4.78912 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+0.500058 7.13073 m
+0.521045 7.43 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+3.51742 6.90384 m
+7.74824 0 0 7.74824 0 0 -4.87511 6.02234 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-4.30884 5.32281 m
+-4.87511 6.02234 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+3.38123 6.63654 m
+3.51742 6.90384 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+7.50172 2.9152 m
+8.04824 0 0 8.04824 0 0 -0.840715 8.00421 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+6.66284 2.5892 m
+7.50172 2.9152 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-0.809377 7.70585 m
+-0.840715 8.00421 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.95173 -1.6646 m
+7.14824 0 0 7.14824 0 0 -5.98991 -3.90107 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-5.73853 -3.73735 m
+-5.98991 -3.90107 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.65997 -1.59474 m
+-6.95173 -1.6646 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-5.32546 4.76832 m
+7.14824 0 0 7.14824 0 0 -6.86471 1.99329 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.57661 1.90964 m
+-6.86471 1.99329 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-5.10196 4.5682 m
+-5.32546 4.76832 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-4.8534 5.64985 m
+7.44824 0 0 7.44824 0 0 -6.51336 3.61282 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-4.46243 5.19472 m
+-4.8534 5.64985 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.25102 3.4673 m
+-6.51336 3.61282 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.00649 4.89463 m
+7.74824 0 0 7.74824 0 0 -7.74677 0.151193 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.84694 0.133631 m
+-7.74677 0.151193 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-5.77392 4.70512 m
+-6.00649 4.89463 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-7.55578 2.77208 m
+8.04824 0 0 8.04824 0 0 -7.98541 -1.00369 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.79478 -0.854041 m
+-7.98541 -1.00369 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-7.27414 2.66875 m
+-7.55578 2.77208 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-8.29472 0.943832 m
+8.34824 0 0 8.34824 0 0 -7.66911 -3.29817 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.56673 -2.82408 m
+-7.66911 -3.29817 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-7.99664 0.909915 m
+-8.29472 0.943832 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-8.5557 -1.26179 m
+8.64824 0 0 8.64824 0 0 -5.44235 -6.72108 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-4.30961 -5.32219 m
+-5.44235 -6.72108 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-8.25891 -1.21802 m
+-8.5557 -1.26179 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+4.65997 7.6391 m
+8.94824 0 0 8.94824 0 0 -7.77308 -4.43287 a
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+4.19128 6.87077 m
+4.65997 7.6391 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-7.51248 -4.28425 m
+-7.77308 -4.43287 l
+</path>
+<path stroke="0" pen="2" opacity="255" stroke-opacity="opaque">
+-6.23345 6.4199 m
+-6.58176 6.77863 l
+</path>
+<use name="mark/fdisk(sfx)" pos="5.67785 3.82889" size="normal" fill="1 0.596 0.662"/>
+<use name="mark/fdisk(sfx)" pos="6.7734 1.00971" size="normal" fill="1 0.69 0.611"/>
+<use name="mark/fdisk(sfx)" pos="6.66284 2.5892" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="-4.30884 5.32281" size="normal" fill="1 0.937 0.647"/>
+<use name="mark/fdisk(sfx)" pos="5.24492 4.40333" size="normal" fill="0.635 1 0.011"/>
+<use name="mark/fdisk(sfx)" pos="-3.85535 5.65992" size="normal" fill="0.16 0.956 0.552"/>
+<use name="mark/fdisk(sfx)" pos="4.60756 5.06644" size="normal" fill="0.231 0.905 0.682"/>
+<use name="mark/fdisk(sfx)" pos="0.500058 7.13073" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="3.38123 6.63654" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="-0.809377 7.70585" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="4.19128 6.87077" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="-4.30961 -5.32219" size="normal" fill="0.341 0.525 1"/>
+<use name="mark/fdisk(sfx)" pos="-5.73853 -3.73735" size="normal" fill="0.913 0.505 0.149"/>
+<use name="mark/fdisk(sfx)" pos="-6.65997 -1.59474" size="normal" fill="0.847 0.58 0.219"/>
+<use name="mark/fdisk(sfx)" pos="-6.56673 -2.82408" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="-6.79478 -0.854041" size="normal" fill="0.329 0.709 0.305"/>
+<use name="mark/fdisk(sfx)" pos="-6.84694 0.133631" size="normal" fill="0.337 0.584 0.556"/>
+<use name="mark/fdisk(sfx)" pos="-4.46243 5.19472" size="normal" fill="0.301 0.505 0.576"/>
+<use name="mark/fdisk(sfx)" pos="-6.57661 1.90964" size="normal" fill="0.25 0.447 0.65"/>
+<use name="mark/fdisk(sfx)" pos="-5.10196 4.5682" size="normal" fill="0.129 0.376 0.901"/>
+<use name="mark/fdisk(sfx)" pos="-6.25102 3.4673" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="-5.77392 4.70512" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="-7.27414 2.66875" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="-7.99664 0.909915" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="-8.25891 -1.21802" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="-7.51248 -4.28425" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="-6.23345 6.4199" size="normal" fill="0"/>
+<use name="mark/fdisk(sfx)" pos="-3.64017 -1.17155" size="normal" fill="1 0.937 0.647"/>
+<use name="mark/fdisk(sfx)" pos="-4.95816 -2.51046" size="normal" fill="0.337 0.584 0.556"/>
+<use name="mark/fdisk(sfx)" pos="-5 -3.03347" size="normal" fill="0.341 0.525 1"/>
+<use name="mark/fdisk(sfx)" pos="-3.72385 -2.21757" size="normal" fill="0.329 0.709 0.305"/>
+<use name="mark/fdisk(sfx)" pos="-0.774059 -1.27615" size="normal" fill="0.16 0.956 0.552"/>
+<use name="mark/fdisk(sfx)" pos="-1.27615 -0.899582" size="normal" fill="0.913 0.505 0.149"/>
+<use name="mark/fdisk(sfx)" pos="-1.71548 0.125523" size="normal" fill="0.25 0.447 0.65"/>
+<use name="mark/fdisk(sfx)" pos="-1.25523 1.25523" size="normal" fill="0.847 0.58 0.219"/>
+<use name="mark/fdisk(sfx)" pos="-0.439331 1.96653" size="normal" fill="1 0.596 0.662"/>
+<use name="mark/fdisk(sfx)" pos="-0.0209205 1.65272" size="normal" fill="0.129 0.376 0.901"/>
+<use name="mark/fdisk(sfx)" pos="2.13389 1.33891" size="normal" fill="0.301 0.505 0.576"/>
+<use name="mark/fdisk(sfx)" pos="5 3.03347" size="normal" fill="1 0.69 0.611"/>
+<use name="mark/fdisk(sfx)" pos="1.61088 0.481172" size="normal" fill="0.635 1 0.011"/>
+<use name="mark/fdisk(sfx)" pos="1.65272 -0.230126" size="normal" fill="0.231 0.905 0.682"/>
+</page>
+</ipe>

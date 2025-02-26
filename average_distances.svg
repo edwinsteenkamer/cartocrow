@@ -1,0 +1,23 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='450' height='450'>
+<rect width='450' height='400' style='fill:white;stroke:black'/>
+<rect x='10' y='336' width='40' height='64' style='fill:blue;stroke:black'/>
+<text x='20' y='420' font-size='12' fill='black' transform='rotate(45 20,420)'>n10</text>
+<rect x='60' y='333' width='40' height='67' style='fill:blue;stroke:black'/>
+<text x='70' y='420' font-size='12' fill='black' transform='rotate(45 70,420)'>n100</text>
+<rect x='110' y='334' width='40' height='66' style='fill:blue;stroke:black'/>
+<text x='120' y='420' font-size='12' fill='black' transform='rotate(45 120,420)'>n20</text>
+<rect x='160' y='334' width='40' height='66' style='fill:blue;stroke:black'/>
+<text x='170' y='420' font-size='12' fill='black' transform='rotate(45 170,420)'>n30</text>
+<rect x='210' y='334' width='40' height='66' style='fill:blue;stroke:black'/>
+<text x='220' y='420' font-size='12' fill='black' transform='rotate(45 220,420)'>n40</text>
+<rect x='260' y='334' width='40' height='66' style='fill:blue;stroke:black'/>
+<text x='270' y='420' font-size='12' fill='black' transform='rotate(45 270,420)'>n50</text>
+<rect x='310' y='333' width='40' height='67' style='fill:blue;stroke:black'/>
+<text x='320' y='420' font-size='12' fill='black' transform='rotate(45 320,420)'>n60</text>
+<rect x='360' y='333' width='40' height='67' style='fill:blue;stroke:black'/>
+<text x='370' y='420' font-size='12' fill='black' transform='rotate(45 370,420)'>n70</text>
+<rect x='410' y='332' width='40' height='68' style='fill:blue;stroke:black'/>
+<text x='420' y='420' font-size='12' fill='black' transform='rotate(45 420,420)'>n80</text>
+<rect x='460' y='332' width='40' height='68' style='fill:blue;stroke:black'/>
+<text x='470' y='420' font-size='12' fill='black' transform='rotate(45 470,420)'>n90</text>
+</svg>
